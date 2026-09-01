@@ -104,7 +104,7 @@ public class ExperienceCauldron extends SlimefunItem implements Listener {
             // Get surrounding item frames
             List<ItemFrame> itemFrames = new ArrayList<>();
 
-            for (Entity en : b.getWorld().getNearbyEntities(b.getLocation(), 1.5, 1, 1.5)) {
+            for (Entity en : b.getWorld().getNearbyEntities(b.getLocation().add(0.5, 0.5, 0.5), 1.5, 1.5, 1.5)) {
                 if (en instanceof ItemFrame && itemFrames.size() < 4) {
                     itemFrames.add((ItemFrame) en);
                 }
@@ -195,6 +195,7 @@ public class ExperienceCauldron extends SlimefunItem implements Listener {
 
             cauldron.setLevel(i);
             b.setBlockData(cauldron);
+            BlockStorage.store(b, FlowerPowerItems.EXPERIENCE_CAULDRON);
 
         } else { //Already water cauldron or version is pre 1.17
             if (!(b.getBlockData() instanceof Levelled cauldron)) {
@@ -204,9 +205,11 @@ public class ExperienceCauldron extends SlimefunItem implements Listener {
             // Empty
             if (i == -1 && cauldron.getLevel() == 1 && mat == Material.WATER_CAULDRON) {
                 b.setType(Material.CAULDRON);
+                BlockStorage.store(b, FlowerPowerItems.EXPERIENCE_CAULDRON);
             } else {
                 cauldron.setLevel(cauldron.getLevel() + i);
                 b.setBlockData(cauldron);
+                BlockStorage.store(b, FlowerPowerItems.EXPERIENCE_CAULDRON);
             }
 
         }
